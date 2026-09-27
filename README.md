@@ -19,6 +19,8 @@ When testing LLM coding harnesses and building retro games, having separate repo
 ## 🎮 Included Games
 
 | Game | Era / Genre | Tech Stack | Description |
+|---|---|---|---|
+| **[Strikers 1945: Air Combat](./games/strikers-1945/index.html)** | 1945 / Arcade Shmup | HTML5 Canvas, 2.5D Parallax, Web Audio | Modern 3D vertical arcade shoot 'em up clone. P-38 Lightning, Spitfire, Zero, bomb barrages, tactical loops, and the Yamato super-battleship boss! |
 | **[NBA Jam: T.E. (1994)](./games/nba-jam/index.html)** | 1994 / Arcade Sports | HTML5 Canvas, Voice Announcer, 2v2 AI | The legendary 2-on-2 arcade basketball phenomenon. Somersault monster dunks, shove defense, flaming balls, and Tim Kitzrow commentary! |
 | **[EA Sports NHL '94](./games/nhl-94/index.html)** | 1994 / 16-Bit Hockey | HTML5 Canvas, Stadium Organ, Ice Physics | The gold standard of retro sports gaming. Devastating one-timers, organ tunes, bone-crushing checks, and Stanley Cup intensity! |
 | **[NEO-QIX 2088](./games/qix/index.html)** | 1981 / Modern Remake | HTML5 Canvas, Delta-Time Engine, Web Audio | Modernized synthwave tribute to Taito's 1981 classic. Claim territory, avoid the erratic plasma Qix, dodge patrolling Sparx, and uncover vibrant synthwave backgrounds. |

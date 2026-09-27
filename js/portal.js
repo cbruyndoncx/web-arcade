@@ -5,6 +5,28 @@
 
 const GAMES_DATA = [
   {
+    id: "strikers-1945",
+    title: "Strikers 1945: Air Combat",
+    category: "shooter",
+    categoryLabel: "Shooter / Arcade Shmup",
+    era: "1945 / 1995 Psikyo",
+    engine: "HTML5 Canvas • 2.5D Parallax • Web Audio Synthesizer",
+    cover: "./assets/covers/strikers-1945.jpg",
+    path: "./games/strikers-1945/index.html",
+    tagline: "The supreme WWII arcade shoot 'em up. Choose P-38 Lightning, Spitfire, or Zero, unleash bomb barrages, and battle the Yamato super-battleship!",
+    specs: ["3 Authentic WWII Fighters", "Parallax Altitude & 3D Skew", "Screen-Clearing Bombs & Loops", "Yamato Super-Battleship Boss"],
+    controlsSnippet: "Mouse/Touch Drag or Arrows/WASD • Space (Shoot) • B (Bomb) • C (Loop)",
+    controls: [
+      { key: "Mouse Drag / Touch Drag", desc: "Smooth high-speed one-finger flight maneuvering with auto-fire" },
+      { key: "Arrow Keys / WASD", desc: "8-way directional flight control with 3D banking skew" },
+      { key: "Space / J", desc: "Fire high-velocity machine guns & wing cannons" },
+      { key: "B / K", desc: "Screen-clearing Bomb Barrage (destroys enemy bullets & damages all targets)" },
+      { key: "C / L", desc: "Tactical Evasion Loop (3D vertical loop with temporary invulnerability)" },
+      { key: "Virtual Touch Pad", desc: "On-screen fire, bomb, and loop buttons for mobile devices" }
+    ],
+    lore: "Inspired by Psikyo's legendary 1995 arcade vertical shoot 'em up and Capcom's 194X series, Strikers 1945 drops players into an alternate WWII conflict. Pilot iconic fighters—the twin-boom P-38 Lightning, agile British Spitfire, or nimble Mitsubishi Zero—over deep multi-layer oceans and tropical atolls, surviving intense bullet curtains to defeat the colossal transformed Yamato battleship."
+  },
+  {
     id: "nba-jam",
     title: "NBA Jam: T.E. (1994)",
     category: "sports",

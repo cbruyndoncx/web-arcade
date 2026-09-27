@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>STRIKERS 1945 // Modern 3D Arcade Shmup</title>
+  <meta name="description" content="A modern 3D virtual space reimagining of the classic 1945 WWII arcade vertical shoot 'em up. P-38 Lightning, bullet-hell battleships, loop maneuvers, and mega bombs!">
+
+  <!-- Favicon: Winged Star Crest -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230f172a'/><polygon points='50,15 62,38 88,40 68,58 74,84 50,70 26,84 32,58 12,40 38,38' fill='%23f59e0b' stroke='%23ef4444' stroke-width='4'/><circle cx='50' cy='50' r='10' fill='%23ffffff'/></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@700;900&family=Inter:wght@600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Return to Arcade Hub -->
+  <a href="../../index.html" target="_top" id="arcade-hub-back-btn" title="Return to Arcade Hub" onclick="if(window.top!==window.self){window.top.postMessage('close-modal','*');return false;}">
+    <span>◀</span> ARCADE HUB
+  </a>
+
+  <!-- Vertical Arcade Cabinet Frame -->
+  <div class="shmup-cabinet">
+    <!-- Top HUD Header -->
+    <header class="shmup-hud">
+      <div class="hud-stat-col">
+        <span class="hud-label">1UP SCORE</span>
+        <span class="hud-val" id="hud-score">000,000</span>
+      </div>
+
+      <div class="hud-center-title">
+        <h1 class="shmup-logo">STRIKERS <span class="logo-red">1945</span></h1>
+        <div id="boss-health-container" class="boss-health-bar hidden">
+          <div class="boss-label">TARGET: SUPER BATTLESHIP</div>
+          <div class="boss-track">
+            <div id="boss-health-fill" class="boss-fill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hud-stat-col right">
+        <span class="hud-label">HIGH SCORE</span>
+        <span class="hud-val" id="hud-highscore">500,000</span>
+      </div>
+    </header>
+
+    <!-- Main Game Viewport (Vertical Tate Canvas) -->
+    <div class="canvas-viewport" id="canvas-viewport">
+      <canvas id="game-canvas" width="480" height="680"></canvas>
+      <div class="crt-overlay"></div>
+
+      <!-- Warning Boss Siren Overlay -->
+      <div id="boss-warning-banner" class="boss-warning hidden">
+        <div class="warning-stripes"></div>
+        <div class="warning-text-wrap">
+          <span class="warning-blink">⚠️ WARNING! ⚠️</span>
+          <h2>A HUGE HOSTILE BATTLESHIP IS APPROACHING!</h2>
+        </div>
+        <div class="warning-stripes"></div>
+      </div>
+
+      <!-- Fighter Plane Selection Overlay -->
+      <div id="hangar-select-overlay" class="game-overlay">
+        <div class="hangar-card">
+          <div class="hangar-header">
+            <span class="sub-h">PACIFIC THEATER &bull; 1945</span>
+            <h2>CHOOSE YOUR FIGHTER</h2>
+          </div>
+
+          <div class="planes-row">
+            <!-- P-38 Lightning -->
+            <button class="plane-card selected" data-plane="p38">
+              <div class="plane-icon p38"></div>
+              <h3>P-38 LIGHTNING</h3>
+              <span class="p-country">USA &bull; TWIN BOOM</span>
+              <ul class="p-specs">
+                <li><span>Vulcan:</span> Twin Heavy Laser</li>
+                <li><span>Special:</span> Firestorm Mega Bomb</li>
+                <li><span>Agility:</span> High</li>
+              </ul>
+            </button>
+
+            <!-- Spitfire -->
+            <button class="plane-card" data-plane="spitfire">
+              <div class="plane-icon spitfire"></div>
+              <h3>SPITFIRE MK.IX</h3>
+              <span class="p-country">RAF &bull; INTERCEPTOR</span>
+              <ul class="p-specs">
+                <li><span>Vulcan:</span> 5-Way Wide Spread</li>
+                <li><span>Special:</span> Wingman Support Squad</li>
+                <li><span>Agility:</span> Extreme</li>
+              </ul>
+            </button>
+
+            <!-- Zero -->
+            <button class="plane-card" data-plane="zero">
+              <div class="plane-icon zero"></div>
+              <h3>A6M ZERO</h3>
+              <span class="p-country">IJN &bull; ACE FIGHTER</span>
+              <ul class="p-specs">
+                <li><span>Vulcan:</span> High-Velocity Tracers</li>
+                <li><span>Special:</span> 3D Loop Evasion</li>
+                <li><span>Agility:</span> Balanced</li>
+              </ul>
+            </button>
+          </div>
+
+          <button id="btn-scramble" class="btn-scramble">🔥 SCRAMBLE! [SPACE] 🔥</button>
+        </div>
+      </div>
+
+      <!-- Game Over / Mission Complete Overlay -->
+      <div id="game-over-overlay" class="game-overlay hidden">
+        <div class="hangar-card">
+          <h2 id="go-title" class="go-title">MISSION DEFEAT</h2>
+          <div class="go-stats">
+            <div class="go-stat-row">
+              <span>FINAL SCORE:</span>
+              <strong id="go-final-score">0</strong>
+            </div>
+            <div class="go-stat-row">
+              <span>MEDALS COLLECTED:</span>
+              <strong id="go-medals">0</strong>
+            </div>
+            <div class="go-stat-row">
+              <span>FLEET DESTROYED:</span>
+              <strong id="go-kills">0</strong>
+            </div>
+          </div>
+          <button id="btn-restart" class="btn-scramble">PLAY AGAIN</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Dashboard: Lives, Bombs, Power Level -->
+    <footer class="shmup-bottom-bar">
+      <!-- Lives -->
+      <div class="bottom-gauge">
+        <span class="gauge-label">LIVES:</span>
+        <div class="lives-icons" id="hud-lives">
+          <span class="life-plane">✈</span>
+          <span class="life-plane">✈</span>
+          <span class="life-plane">✈</span>
+        </div>
+      </div>
+
+      <!-- Bombs -->
+      <div class="bottom-gauge">
+        <span class="gauge-label">BOMBS:</span>
+        <div class="bomb-icons" id="hud-bombs">
+          <span class="bomb-badge">💣</span>
+          <span class="bomb-badge">💣</span>
+        </div>
+      </div>
+
+      <!-- Weapon Power -->
+      <div class="bottom-gauge power-col">
+        <span class="gauge-label">WEAPON POWER:</span>
+        <div class="power-bar-track">
+          <div id="power-bar-fill" class="power-fill" style="width: 25%;"></div>
+        </div>
+      </div>
+
+      <!-- Sound Toggle -->
+      <button id="btn-sound-toggle" class="btn-sound-shmup">🔊 SOUND</button>
+    </footer>
+
+    <!-- Touch Virtual Action Buttons -->
+    <div class="touch-action-bar">
+      <button id="vbtn-bomb" class="touch-btn bomb">💣 MEGA BOMB</button>
+      <button id="vbtn-loop" class="touch-btn loop">🔄 3D LOOP</button>
+    </div>
+
+    <!-- Controls Legend -->
+    <div class="shmup-legend">
+      <span>🕹️ <strong>MOVE:</strong> <kbd>&larr;</kbd><kbd>&uarr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> or <kbd>WASD</kbd> (or Touch/Mouse Drag)</span>
+      <span>🔫 <strong>FIRE:</strong> <kbd>SPACE</kbd> or <kbd>J</kbd> (Auto-fire active)</span>
+      <span>💣 <strong>BOMB:</strong> <kbd>B</kbd> or <kbd>K</kbd></span>
+      <span>🔄 <strong>3D LOOP:</strong> <kbd>C</kbd> or <kbd>L</kbd></span>
+    </div>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>
