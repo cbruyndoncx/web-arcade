@@ -36,18 +36,19 @@ const GAMES_DATA = [
     cover: "./assets/covers/snoopy.jpg",
     path: "./games/snoopy/index.html",
     tagline: "Authentic recreation of the 1983 Nintendo Tabletop arcade classic. Smash Schroeder's musical notes with Snoopy's hammer before they wake sleeping Woodstock!",
-    specs: ["Orange Tabletop Cabinet", "Piezo Beeper Synthesizer", "Game A & Game B Modes", "Lucy 100-Pt Intermission"],
-    controlsSnippet: "Left / Right • Space (Smash) • 1/2 (Game A/B)",
+    specs: ["Smooth Lerp Physics", "Glowing Strike Targets", "Game A & Game B Modes", "Lucy 100-Pt Intermission"],
+    controlsSnippet: "Left / Right • Space (Smash in Target Circle) • H (Guide)",
     controls: [
-      { key: "Left Arrow / A", desc: "Move Snoopy left across platform posts" },
-      { key: "Right Arrow / D", desc: "Move Snoopy right across platform posts" },
-      { key: "Space / Up / Enter", desc: "Smash with mallet to crush rising musical notes" },
-      { key: "1 or Game A Button", desc: "Start Game A (3 note tracks, standard speed)" },
-      { key: "2 or Game B Button", desc: "Start Game B (4 note tracks, frantic speed)" },
-      { key: "M", desc: "Toggle piezo sound effects" },
+      { key: "Left Arrow / A", desc: "Move Snoopy left across the 4 platform posts (smooth glide)" },
+      { key: "Right Arrow / D", desc: "Move Snoopy right across the 4 platform posts (smooth glide)" },
+      { key: "Space / Up / Enter", desc: "Swing hammer when rising note enters the glowing Strike Target ring" },
+      { key: "H or HOW TO PLAY", desc: "Open the comprehensive in-game visual gameplay guide" },
+      { key: "1 or Game A Button", desc: "Start Game A (3 note tracks, relaxed speed)" },
+      { key: "2 or Game B Button", desc: "Start Game B (4 note tracks, fast pace)" },
+      { key: "M", desc: "Toggle vintage piezo sound effects" },
       { key: "Virtual Joystick", desc: "On-screen touch controls for smartphones and tablets" }
     ],
-    lore: "Invented by Gunpei Yokoi and released by Nintendo in 1983, the Tabletop series was renowned for its chunky bright orange arcade cabinet, illuminated mirror-reflected color LCD screen, and mini joystick. Snoopy must protect sleeping Woodstock from the cascade of musical notes pouring out of Schroeder's toy piano."
+    lore: "Invented by Gunpei Yokoi and released by Nintendo in 1983, the Tabletop series was renowned for its chunky bright orange arcade cabinet, illuminated mirror-reflected color LCD screen, and mini joystick. Snoopy must protect sleeping Woodstock from the cascade of musical notes pouring out of Schroeder's toy piano by timing his hammer swings inside the glowing Strike Targets."
   },
   {
     id: "jet-set-willy-agy",

@@ -53,6 +53,10 @@
             <span class="btn-pip"></span>
             GAME B
           </button>
+          <button id="btn-how-to-play" class="sys-btn sys-btn-help" title="View Instructions & Gameplay Guide">
+            <span class="btn-pip help-pip">?</span>
+            HOW TO PLAY
+          </button>
           <button id="btn-time" class="sys-btn" title="Display Clock Time">
             <span class="btn-pip"></span>
             TIME
@@ -110,6 +114,75 @@
     <span><kbd>1</kbd> : Game A</span>
     <span><kbd>2</kbd> : Game B</span>
     <span><kbd>M</kbd> : Mute</span>
+    <span><kbd>H</kbd> : How to Play</span>
+  </div>
+
+  <!-- How to Play Instructions Modal -->
+  <div id="instructions-modal" class="inst-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="inst-modal-title">
+    <div class="inst-modal-card">
+      <div class="inst-modal-header">
+        <div class="inst-title-row">
+          <span class="inst-icon">📖</span>
+          <h2 id="inst-modal-title">HOW TO PLAY &bull; SNOOPY TABLETOP</h2>
+        </div>
+        <button id="inst-close-btn" class="inst-close-btn" title="Close Guide">&times;</button>
+      </div>
+
+      <div class="inst-modal-body">
+        <!-- Step 1: Objective -->
+        <div class="inst-step">
+          <div class="step-badge">1</div>
+          <div class="step-content">
+            <h3>Protect Sleeping Woodstock!</h3>
+            <p>At the bottom, <strong>Schroeder</strong> plays his red toy piano, sending a cascade of musical notes floating upwards towards <strong>Woodstock's nest</strong> at the top right. If any note reaches the nest, Woodstock wakes up in distress and you get a <strong>MISS</strong> (3 misses = Game Over).</p>
+          </div>
+        </div>
+
+        <!-- Step 2: Movement -->
+        <div class="inst-step">
+          <div class="step-badge">2</div>
+          <div class="step-content">
+            <h3>Fluid Movement Across 4 Platforms</h3>
+            <p>Press <kbd>&larr;</kbd> <kbd>&rarr;</kbd> (or <kbd>A</kbd> <kbd>D</kbd> / Red Joystick) to guide Snoopy across the 4 colored platform posts. Snoopy now glides smoothly from post to post.</p>
+            <div class="platform-chips-preview">
+              <span class="chip-p red">1: RED</span>
+              <span class="chip-p green">2: GREEN</span>
+              <span class="chip-p blue">3: BLUE</span>
+              <span class="chip-p yellow">4: YELLOW</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Timing the Strike -->
+        <div class="inst-step">
+          <div class="step-badge">3</div>
+          <div class="step-content">
+            <h3>Smash Notes in the Strike Zone</h3>
+            <p>Each platform has a glowing circular <strong>Strike Target</strong>. When a rising note enters the circle over your current platform, press <kbd>SPACE</kbd>, <kbd>&uarr;</kbd>, or the big red <strong>SMASH</strong> button!</p>
+            <ul class="inst-tips-list">
+              <li>🎯 <strong>Normal Hit:</strong> +1 Point</li>
+              <li>⭐ <strong>Dead-Center Perfect Hit:</strong> +3 Points & double score bonus!</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Step 4: Special Events -->
+        <div class="inst-step">
+          <div class="step-badge">4</div>
+          <div class="step-content">
+            <h3>Modes & Special Events</h3>
+            <p><strong>Game A:</strong> 3 note tracks at a relaxed tempo &bull; <strong>Game B:</strong> 4 note tracks at high speed!</p>
+            <p><strong>Every 100 Points:</strong> Lucy storms in and kicks Schroeder's piano! At <strong>300 Points</strong>, all your misses are completely wiped clean!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="inst-modal-footer">
+        <button id="inst-btn-start-a" class="inst-action-btn primary">▶ Start Game A</button>
+        <button id="inst-btn-start-b" class="inst-action-btn secondary">⚡ Start Game B</button>
+        <button id="inst-btn-dismiss" class="inst-action-btn dismiss">Got It!</button>
+      </div>
+    </div>
   </div>
 
   <script src="js/game.js"></script>
