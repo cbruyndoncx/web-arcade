@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RETRO WEB ARCADE // Unified Multi-Game Hub</title>
+  <meta name="description" content="Play classic and modern retro arcade games directly in your browser with zero installs. Powered by static GitHub Pages.">
+
+  <!-- Favicon: Neon Joystick / Cabinet -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%230a0d1e'/><polygon points='25,85 75,85 70,30 30,30' fill='%23161c3c' stroke='%2300f0ff' stroke-width='4'/><rect x='35' y='40' width='30' height='22' rx='4' fill='%23ff007f'/><circle cx='50' cy='22' r='8' fill='%23ffe600'/><rect x='48' y='22' width='4' height='10' fill='%23ffe600'/></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/portal.css">
+</head>
+<body>
+  <!-- Ambient cybernetic grid background -->
+  <div class="cyber-bg">
+    <div class="stars-layer"></div>
+    <div class="grid-horizon"></div>
+  </div>
+
+  <div class="arcade-shell">
+    <!-- Marquee Banner Header -->
+    <header class="arcade-marquee">
+      <div class="marquee-decor-stripes">
+        <span class="m-stripe cyan"></span>
+        <span class="m-stripe magenta"></span>
+        <span class="m-stripe yellow"></span>
+        <span class="m-stripe green"></span>
+      </div>
+
+      <div class="marquee-content">
+        <div class="brand-group">
+          <div class="brand-badge"><span class="blink-dot"></span> LIVE CAB</div>
+          <h1 class="portal-title">
+            <span class="glow-cyan">RETRO</span>
+            <span class="glow-white">WEB</span>
+            <span class="glow-pink">ARCADE</span>
+          </h1>
+          <p class="portal-tagline">Unified Multi-Game Browser Cabinet &bull; Zero Server Dependencies &bull; GitHub Pages Ready</p>
+        </div>
+
+        <div class="marquee-stats">
+          <div class="stat-chip">
+            <span class="stat-number" id="total-games-count">4</span>
+            <span class="stat-label">GAMES</span>
+          </div>
+          <div class="stat-chip">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">STATIC</span>
+          </div>
+          <button id="btn-random-game" class="btn-marquee" title="Pick a random game to launch">
+            <span class="dice-icon">🎲</span> RANDOM PLAY
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Toolbar: Search & Category Filters -->
+    <nav class="hub-toolbar" aria-label="Game Filter Toolbar">
+      <div class="filter-pills" id="category-filters">
+        <button class="filter-pill active" data-category="all">All Games <span class="pill-count">4</span></button>
+        <button class="filter-pill" data-category="arcade">Arcade <span class="pill-count">1</span></button>
+        <button class="filter-pill" data-category="platformer">Platformer <span class="pill-count">2</span></button>
+        <button class="filter-pill" data-category="puzzle">Puzzle <span class="pill-count">1</span></button>
+      </div>
+
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="game-search-input" placeholder="Search by game title, genre, controls..." autocomplete="off">
+        <button id="search-clear-btn" class="search-clear-btn" title="Clear search" aria-label="Clear search">&times;</button>
+      </div>
+    </nav>
+
+    <!-- Games Grid Showcase -->
+    <main class="games-container">
+      <section class="games-grid" id="games-grid">
+        <!-- Rendered dynamically via portal.js -->
+      </section>
+
+      <!-- Empty Search Fallback -->
+      <div id="no-results" class="no-results hidden">
+        <div class="empty-icon">👾</div>
+        <h3>NO GAMES FOUND</h3>
+        <p>No titles matched your filter. Try adjusting your query.</p>
+        <button class="btn-action primary" id="btn-reset-filters">Show All Games</button>
+      </div>
+    </main>
+
+    <!-- Architecture & Deployment Info Footer -->
+    <footer class="arcade-footer">
+      <div class="footer-card">
+        <div class="footer-section">
+          <h4>🏛️ Zero Sprawl Architecture</h4>
+          <p>Every game is co-located under <code>games/&lt;game-name&gt;/</code> with purely relative asset resolution. Everything serves static out of the box via GitHub Pages.</p>
+        </div>
+        <div class="footer-section">
+          <h4>🚀 Deploying on GitHub Pages</h4>
+          <p>Push this single repository to GitHub &rarr; go to <strong>Settings</strong> &rarr; <strong>Pages</strong> &rarr; choose Branch <code>main</code> and folder <code>/ (root)</code> &rarr; Save. That's it!</p>
+        </div>
+        <div class="footer-section">
+          <h4>🎮 Universal Compatibility</h4>
+          <p>Full keyboard mappings, on-screen touch D-pads for smartphones & tablets, and embedded theater mode with instant escape hatch back to the Arcade Hub.</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>Retro Web Arcade &bull; Crafted with Vanilla HTML5, CSS3, & Modern JavaScript</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Theater Play Modal (Embedded Arcade Cabinet) -->
+  <div id="theater-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-game-title">
+    <div class="modal-cabinet">
+      <div class="cabinet-marquee-header">
+        <div class="modal-title-wrap">
+          <span class="cabinet-led">●</span>
+          <h2 id="modal-game-title">GAME TITLE</h2>
+          <span class="modal-category-badge" id="modal-game-category">CATEGORY</span>
+        </div>
+
+        <div class="modal-actions">
+          <button id="modal-launch-newtab" class="cabinet-ctrl-btn" title="Open standalone in new browser tab">
+            ↗ Standalone Tab
+          </button>
+          <button id="modal-fullscreen-btn" class="cabinet-ctrl-btn" title="Toggle Fullscreen">
+            ⛶ Fullscreen
+          </button>
+          <button id="modal-close-btn" class="cabinet-ctrl-btn close-btn" title="Close and return to Hub (ESC)">
+            ✕ Close [ESC]
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Frame Container -->
+      <div class="cabinet-screen-container" id="cabinet-screen-container">
+        <div class="crt-scanlines"></div>
+        <iframe id="cabinet-iframe" src="about:blank" title="Arcade Game Viewport" allow="autoplay; fullscreen; gamepad"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info & Controls Modal -->
+  <div id="info-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="info-modal-title">
+    <div class="info-card-modal">
+      <div class="info-modal-header">
+        <div>
+          <span class="info-tag" id="info-modal-era">ERA</span>
+          <h2 id="info-modal-title">GAME DETAILS</h2>
+        </div>
+        <button id="info-modal-close" class="cabinet-ctrl-btn close-btn" title="Close (ESC)">✕</button>
+      </div>
+
+      <div class="info-modal-body" id="info-modal-body">
+        <!-- Injected via JS -->
+      </div>
+
+      <div class="info-modal-footer">
+        <button id="info-modal-play-btn" class="btn-action primary">▶ Play Now</button>
+        <button id="info-modal-tab-btn" class="btn-action secondary">↗ Launch In New Tab</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/portal.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jet Set Willy (1984) - Classic ZX Spectrum Web Remake</title>
+    <meta name="description" content="Play the authentic 1984 ZX Spectrum platform classic Jet Set Willy directly in your browser. All 60 rooms, guardians, authentic physics, and Moonlight Sonata soundtrack.">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><rect width='16' height='16' fill='%23000'/><rect x='4' y='2' width='8' height='6' fill='%23fff'/><rect x='2' y='8' width='12' height='2' fill='%23fff'/><rect x='5' y='10' width='6' height='4' fill='%23ea0'/></svg>">
+</head>
+<body>
+    <div id="app">
+        <!-- Header / Marquee -->
+        <header class="game-header">
+            <div class="spectrum-stripes">
+                <span class="stripe red"></span>
+                <span class="stripe yellow"></span>
+                <span class="stripe green"></span>
+                <span class="stripe cyan"></span>
+                <span class="stripe magenta"></span>
+            </div>
+            <div class="title-container">
+                <h1 class="game-title">JET SET WILLY</h1>
+                <span class="sub-title">1984 SOFTWARE PROJECTS &bull; MATTHEW SMITH</span>
+            </div>
+            <div class="quick-links">
+                <a href="../../index.html" target="_top" class="btn-retro" style="text-decoration:none;display:inline-flex;align-items:center;gap:4px;" onclick="if(window.top!==window.self){window.top.postMessage('close-modal','*');return false;}">◀ Arcade Hub</a>
+                <button id="btnHelp" class="btn-retro" title="Controls & Story">❓ Help</button>
+                <button id="btnFullscreen" class="btn-retro" title="Toggle Fullscreen">⛶ Fullscreen</button>
+            </div>
+        </header>
+
+        <!-- Main Arcade Container -->
+        <main class="arcade-cabinet">
+            <!-- Screen with Dynamic Spectrum Border -->
+            <div id="screenFrame" class="screen-frame">
+                <div id="screenBorder" class="screen-border">
+                    <canvas id="gameCanvas" width="256" height="192"></canvas>
+                    <div class="crt-scanlines"></div>
+                </div>
+
+                <!-- On-Screen Virtual Touch Controls (Mobile/Tablet) -->
+                <div id="touchControls" class="touch-controls">
+                    <div class="dpad">
+                        <button id="btnLeft" class="touch-btn" aria-label="Left">◀</button>
+                        <button id="btnRight" class="touch-btn" aria-label="Right">▶</button>
+                    </div>
+                    <div class="action-pad">
+                        <button id="btnStart" class="touch-btn touch-btn-start" aria-label="Start / Pause">PAUSE</button>
+                        <button id="btnJump" class="touch-btn touch-btn-jump" aria-label="Jump">JUMP</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard / Controls Bar -->
+            <section class="control-dashboard">
+                <!-- Room Selector / Practice Warp -->
+                <div class="control-group">
+                    <label for="roomSelect" class="control-label">Mansion Room Warp:</label>
+                    <select id="roomSelect" class="retro-select"></select>
+                </div>
+
+                <!-- Audio Controls -->
+                <div class="control-group">
+                    <button id="btnSound" class="btn-retro">🔊 Sound: ON</button>
+                    <button id="btnMusic" class="btn-retro">🎵 Music: ON</button>
+                    <div class="volume-container">
+                        <span class="control-label">Vol:</span>
+                        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.5" class="retro-slider">
+                    </div>
+                </div>
+
+                <!-- Game Settings & Cheats -->
+                <div class="control-group">
+                    <div class="setting-item">
+                        <label for="speedSelect" class="control-label">Speed:</label>
+                        <select id="speedSelect" class="retro-select">
+                            <option value="50" selected>50 Hz (PAL Spectrum)</option>
+                            <option value="60">60 Hz (Turbo)</option>
+                            <option value="30">30 Hz (Practice Slow)</option>
+                        </select>
+                    </div>
+
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="crtToggle">
+                        <span class="control-label">CRT Filter</span>
+                    </label>
+
+                    <button id="btnCheatLives" class="btn-retro" title="Toggle Infinite Lives">❤️ Lives: 7</button>
+                    <button id="btnCollectAll" class="btn-retro" title="Collect all items instantly">🧹 Collect All</button>
+                </div>
+
+                <!-- Save / Load -->
+                <div class="control-group">
+                    <button id="btnSave" class="btn-retro">💾 Save State</button>
+                    <button id="btnLoad" class="btn-retro">📂 Load State</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="game-footer">
+            <p>ZX Spectrum 48K Remake &bull; Ready for GitHub Pages &bull; Touch & Gamepad Supported</p>
+            <p class="keys-legend">Controls: <strong>Arrow Keys / QAOP</strong> to Move &bull; <strong>Space / Up</strong> to Jump &bull; <strong>Enter</strong> to Start / Pause &bull; <strong>M</strong> to Mute</p>
+        </footer>
+
+        <!-- Help / Info Modal -->
+        <div id="helpModal" class="modal-backdrop" style="display: none;">
+            <div class="modal-card">
+                <div class="modal-header">
+                    <h2>JET SET WILLY - HOW TO PLAY</h2>
+                    <button id="closeHelp" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <h3>The Story</h3>
+                    <p>Miner Willy struck it rich in <em>Manic Miner</em> and purchased a colossal 60-room mansion. After an all-night party, Maria the housekeeper will not let Willy go to sleep in his Master Bedroom until every flashing item (82 in total) is collected from around the estate!</p>
+
+                    <h3>Controls</h3>
+                    <table class="help-table">
+                        <tr><th>Action</th><th>Keyboard</th><th>Gamepad</th><th>Touch</th></tr>
+                        <tr><td>Walk Left</td><td>Left Arrow / A / O</td><td>D-Pad Left / Stick</td><td>◀ Button</td></tr>
+                        <tr><td>Walk Right</td><td>Right Arrow / D / P</td><td>D-Pad Right / Stick</td><td>▶ Button</td></tr>
+                        <tr><td>Jump</td><td>Space / Up Arrow / W / Q</td><td>A / B / Y</td><td>JUMP Button</td></tr>
+                        <tr><td>Pause / Start</td><td>Enter</td><td>Start</td><td>PAUSE Button</td></tr>
+                        <tr><td>Mute Sound</td><td>M</td><td>-</td><td>-</td></tr>
+                        <tr><td>Quit to Title</td><td>Escape</td><td>-</td><td>-</td></tr>
+                    </table>
+
+                    <h3>Original Mechanics</h3>
+                    <ul>
+                        <li><strong>Fixed Jump Trajectory:</strong> Willy's jumps follow a fixed parabolic arc. You cannot change direction in mid-air!</li>
+                        <li><strong>Slopes & Ramps:</strong> Walk smoothly up and down diagonal slopes.</li>
+                        <li><strong>Conveyors:</strong> Belts pull Willy in the direction they roll. Walk with them to speed up, or fight against them.</li>
+                        <li><strong>Ropes:</strong> In <em>The Quirkafleeg</em>, <em>On the Roof</em>, <em>Cold Store</em>, <em>Swimming Pool</em>, and <em>The Beach</em>, grab swinging ropes, ride across chasms, and jump off!</li>
+                        <li><strong>Fall Height:</strong> Falling too far (more than 4-5 blocks) is fatal!</li>
+                        <li><strong>Sleepwalker Ending:</strong> Once all 82 items are collected, head to the Master Bedroom, jump in bed, and watch Willy sleepwalk into the bathroom for the final toilet flush!</li>
+                    </ul>
+
+                    <h3>Classic Cheat Code</h3>
+                    <p>Type <strong>writetyper</strong> at any time to enable the classic cheat mode! You can also use the <strong>Mansion Room Warp</strong> selector at the bottom to explore any of the 60 rooms.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="toastNotification" class="toast"></div>
+    </div>
+
+    <!-- Scripts in Dependency Order -->
+    <script src="./js/constants.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/audio.js"></script>
+    <script src="./js/renderer.js"></script>
+    <script src="./js/physics.js"></script>
+    <script src="./js/robots.js"></script>
+    <script src="./js/rope.js"></script>
+    <script src="./js/input.js"></script>
+    <script src="./js/game.js"></script>
+    <script src="./js/main.js"></script>
+</body>
+</html>

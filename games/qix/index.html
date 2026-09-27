@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NEO-QIX 2088 // Cybernetic Arcade</title>
+  <meta name="description" content="A modernized synthwave arcade tribute to the 1981 classic QIX. Claim territory, dodge the erratic plasma Qix, evade patrolling Sparx, and trigger high-score slices!">
+  
+  <!-- Favicon: Neon Diamond -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><polygon points='50,5 95,50 50,95 5,50' fill='%2300f0ff' stroke='%23ff007f' stroke-width='8'/><circle cx='50' cy='50' r='14' fill='%23ffffff'/></svg>">
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Retro CRT Scanline & Vignette Effect Layer -->
+  <div class="crt-overlay"></div>
+
+  <!-- Return to Arcade Hub -->
+  <a href="../../index.html" target="_top" id="arcade-hub-back-btn" style="position:fixed;top:12px;left:12px;z-index:99999;background:rgba(10,14,35,0.9);color:#00f0ff;border:1px solid rgba(0,240,255,0.6);border-radius:20px;padding:6px 14px;font-size:12px;font-family:monospace,'Segoe UI',sans-serif;font-weight:700;letter-spacing:1px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;box-shadow:0 0 12px rgba(0,240,255,0.35);backdrop-filter:blur(6px);cursor:pointer;user-select:none;transition:all .2s ease;" onmouseover="this.style.background='#00f0ff';this.style.color='#0a0e23';this.style.boxShadow='0 0 18px #00f0ff';" onmouseout="this.style.background='rgba(10,14,35,0.9)';this.style.color='#00f0ff';this.style.boxShadow='0 0 12px rgba(0,240,255,0.35)';" onclick="if(window.top!==window.self){window.top.postMessage('close-modal','*');return false;}">
+    <span>◀</span> ARCADE HUB
+  </a>
+
+  <main id="arcade-container">
+    
+    <!-- Top HUD Bar -->
+    <header id="hud">
+      <div class="hud-row-top">
+        <div class="hud-stat">
+          <span class="stat-label">HIGH SCORE</span>
+          <span class="stat-val" id="high-score-val">10,000</span>
+        </div>
+
+        <div class="hud-stat" style="align-items: center;">
+          <span class="stat-label">ROUND</span>
+          <span class="stat-val" id="level-badge"><span id="level-val">1</span></span>
+        </div>
+
+        <div class="hud-stat" style="align-items: flex-end;">
+          <span class="stat-label">SCORE</span>
+          <span class="stat-val" id="score-val">0</span>
+        </div>
+      </div>
+
+      <div class="hud-row-bottom">
+        <div class="progress-container">
+          <div class="progress-labels">
+            <span class="claimed-label">CLAIMED: <span id="percent-val">0.0%</span></span>
+            <span class="goal-label">GOAL: <span id="target-percent-val">75%</span></span>
+          </div>
+          <div class="progress-bar-track">
+            <div id="progress-bar-fill"></div>
+          </div>
+        </div>
+
+        <div class="hud-indicators">
+          <div id="lives-container" title="Remaining Lives">
+            <span class="life-marker">◆</span>
+            <span class="life-marker">◆</span>
+            <span class="life-marker">◆</span>
+          </div>
+
+          <div id="buff-container"></div>
+          <div id="fuse-warning">⚠️ FUSE LIT!</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Canvas Viewport -->
+    <section id="canvas-viewport">
+      <canvas id="game-canvas"></canvas>
+
+      <!-- Start / Attract Screen Modal -->
+      <div id="start-screen" class="modal-overlay">
+        <h1 class="game-title">NEO-QIX</h1>
+        <div class="game-subtitle">CYBERNETIC ARCADE REVOLUTION</div>
+
+        <div class="option-row">
+          <label for="mode-select">MODE:</label>
+          <select id="mode-select" class="cyber-select">
+            <option value="arcade">ARCADE (3 LIVES, 75% GOAL)</option>
+            <option value="hardcore">HARDCORE (1 LIFE, 80% GOAL)</option>
+            <option value="zen">ZEN (INFINITE LIVES, RELAX)</option>
+          </select>
+        </div>
+
+        <button id="btn-start" class="arcade-btn btn-primary">INSERT COIN // START</button>
+        <button id="btn-how-to-play" class="arcade-btn">HOW TO PLAY</button>
+        <button id="btn-scores" class="arcade-btn">HALL OF FAME</button>
+
+        <div class="option-row" style="margin-top: 15px;">
+          <label>
+            <input type="checkbox" id="crt-toggle"> CRT SCANLINE FILTER
+          </label>
+        </div>
+      </div>
+
+      <!-- Game Over Modal -->
+      <div id="game-over-screen" class="modal-overlay hidden">
+        <h2 class="game-over-title">SYSTEM COMPROMISED</h2>
+        <div id="new-high-score-banner" class="hidden">★ NEW HIGH SCORE RECORD! ★</div>
+
+        <div class="stats-grid">
+          <div class="stat-item">
+            <span class="stat-label">FINAL SCORE</span>
+            <span class="val" id="final-score-val">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">TERRITORY</span>
+            <span class="val" id="final-territory-val">0%</span>
+          </div>
+          <div class="stat-item" style="grid-column: span 2;">
+            <span class="stat-label">LARGEST SINGLE CUT</span>
+            <span class="val" id="final-cut-val">0%</span>
+          </div>
+        </div>
+
+        <button id="btn-restart" class="arcade-btn btn-primary">REBOOT // TRY AGAIN</button>
+      </div>
+
+      <!-- Level Clear Overlay Banner -->
+      <div id="level-clear-screen" class="modal-overlay hidden">
+        <h2 class="level-clear-title">SECTOR CLEARED!</h2>
+        <p style="font-family: var(--font-display); font-size: 16px; color: var(--neon-cyan); margin-bottom: 8px;">
+          ROUND <span id="clear-level-num">1</span> SECURED (<span id="clear-total-percent">78.5%</span>)
+        </p>
+        <div style="font-family: var(--font-display); font-size: 20px; color: var(--neon-gold); font-weight: 800;" id="clear-bonus-val">
+          +5,800 BONUS
+        </div>
+      </div>
+
+      <!-- Pause Overlay -->
+      <div id="pause-screen" class="modal-overlay hidden">
+        <h2 class="game-title" style="font-size: 32px; color: var(--neon-cyan);">PAUSED</h2>
+        <button id="btn-resume" class="arcade-btn btn-primary">RESUME OPERATION</button>
+      </div>
+
+      <!-- How to Play Interactive Modal -->
+      <div id="how-to-play-modal" class="modal-overlay hidden">
+        <div class="how-to-card">
+          <h2>MISSION PROTOCOLS</h2>
+
+          <div class="rule-item">
+            <div class="rule-icon">💎</div>
+            <div class="rule-text">
+              <h3>YOUR OBJECTIVE</h3>
+              <p>Control the diamond marker. Carve into the cyber void to capture at least <strong>75%</strong> of the territory to advance to the next sector.</p>
+            </div>
+          </div>
+
+          <div class="rule-item">
+            <div class="rule-icon">⚡</div>
+            <div class="rule-text">
+              <h3>FAST VS SLOW DRAW</h3>
+              <p><strong>Fast Draw (Cyan):</strong> Swift movement, standard points (100 pts / 1%).<br>
+              <strong>Slow Draw (Gold):</strong> Half speed, double danger, <strong>DOUBLE POINTS</strong> (200 pts / 1%)!</p>
+            </div>
+          </div>
+
+          <div class="rule-item">
+            <div class="rule-icon">🌀</div>
+            <div class="rule-text">
+              <h3>THE QIX HELIX</h3>
+              <p>An erratic multi-jointed plasma entity roams the unclaimed grid. If any segment of the Qix strikes your drawing line before it closes, you disintegrate!</p>
+            </div>
+          </div>
+
+          <div class="rule-item">
+            <div class="rule-icon">🔥</div>
+            <div class="rule-text">
+              <h3>THE FUSE</h3>
+              <p>Never freeze while drawing! Hesitating for even half a second ignites the Fuse, which races down your trail toward you.</p>
+            </div>
+          </div>
+
+          <div class="rule-item">
+            <div class="rule-icon">⚔️</div>
+            <div class="rule-text">
+              <h3>SPARX PATROLS</h3>
+              <p>Sparx patrol existing boundaries. In prolonged rounds, they turn into aggressive red <strong>Super Sparx</strong> that actively hunt you.</p>
+            </div>
+          </div>
+
+          <div class="rule-item">
+            <div class="rule-icon">🚀</div>
+            <div class="rule-text">
+              <h3>CYBER CORES & COMBOS</h3>
+              <p>Enclose floating power-up cores to trigger <strong>EMP Stun</strong>, <strong>Nano Shields</strong>, <strong>Hyper Speed</strong>, or <strong>3X Points</strong>. Huge single cuts award Mega & Giga Slice bonuses!</p>
+            </div>
+          </div>
+
+          <div class="keys-grid">
+            <div><span class="key-badge">ARROWS / WASD</span> Move</div>
+            <div><span class="key-badge">SPACE / X</span> Fast Draw</div>
+            <div><span class="key-badge">Z / K / SHIFT</span> Slow Draw (2x)</div>
+            <div><span class="key-badge">P / ESC</span> Pause</div>
+            <div><span class="key-badge">M</span> Mute Sound</div>
+            <div><span class="key-badge">GAMEPAD</span> Full Support</div>
+          </div>
+
+          <div style="text-align: center; margin-top: 14px;">
+            <button id="btn-close-how" class="arcade-btn btn-primary">ACKNOWLEDGE</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- High Scores Leaderboard Modal -->
+      <div id="high-scores-modal" class="modal-overlay hidden">
+        <div class="scores-card">
+          <h2>HALL OF FAME</h2>
+          <ul id="high-scores-list">
+            <!-- Populated dynamically via ui.js -->
+          </ul>
+          <button id="btn-close-scores" class="arcade-btn btn-primary">DISMISS</button>
+        </div>
+      </div>
+
+      <!-- Touch Controls (Mobile / Tablet) -->
+      <div id="touch-controls" class="hidden">
+        <div class="dpad-container">
+          <button class="touch-btn" id="touch-up">▲</button>
+          <button class="touch-btn" id="touch-left">◀</button>
+          <button class="touch-btn" id="touch-right">▶</button>
+          <button class="touch-btn" id="touch-down">▼</button>
+        </div>
+
+        <div class="action-buttons-container">
+          <button class="action-touch-btn btn-slow" id="touch-slow">
+            SLOW
+            <span class="sub">2X PTS</span>
+          </button>
+          <button class="action-touch-btn btn-fast" id="touch-fast">
+            FAST
+            <span class="sub">SPEED</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Utility Toolbar -->
+    <footer id="toolbar">
+      <button class="tool-btn" id="btn-audio">🔊 SOUND: ON</button>
+      <button class="tool-btn" id="btn-fullscreen">⛶ FULLSCREEN</button>
+    </footer>
+
+  </main>
+
+  <!-- Game Scripts (ES6 Module) -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

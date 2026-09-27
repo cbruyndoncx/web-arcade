@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Jet Set Willy</title>
+<style>
+  html, body { margin:0; padding:0; background:#000; height:100%; overflow:hidden; touch-action:none; }
+  body { display:flex; flex-direction:column; align-items:center; justify-content:center; font-family: monospace; color:#ccc; }
+  #wrap { position:relative; }
+  canvas { display:block; image-rendering: pixelated; image-rendering: crisp-edges; background:#000; }
+  #touch { display:none; position:fixed; left:0; right:0; bottom:0; height:22vh; pointer-events:none; }
+  #touch button { position:absolute; bottom:2vh; width:18vw; height:18vw; max-width:110px; max-height:110px;
+    border-radius:50%; border:2px solid #666; background:rgba(80,80,80,.45); color:#fff; font-size:6vw; pointer-events:auto; user-select:none; -webkit-user-select:none; }
+  #bl { left:3vw; } #br { left:25vw; } #bj { right:3vw; }
+  @media (pointer:coarse) { #touch { display:block; } }
+  #info { position:fixed; top:4px; right:8px; font-size:12px; color:#666; }
+  #info a { color:#888; }
+</style>
+</head>
+<body>
+<a href="../../index.html" target="_top" style="position:fixed;top:10px;left:10px;z-index:99999;background:rgba(20,20,20,0.9);color:#00ffff;border:1px solid #00ffff;border-radius:16px;padding:5px 12px;font-size:12px;font-family:monospace;text-decoration:none;display:inline-flex;align-items:center;gap:6px;cursor:pointer;" onclick="if(window.top!==window.self){window.top.postMessage('close-modal','*');return false;}">◀ ARCADE HUB</a>
+<div id="wrap"><canvas id="c" width="256" height="192"></canvas></div>
+<div id="touch"><button id="bl">&#9664;</button><button id="br">&#9654;</button><button id="bj">&#9650;</button></div>
+<div id="info"><a href="https://github.com/cbruyndoncx/jet-set-willy">source</a></div>
+<script src="game.js"></script>
+</body>
+</html>
