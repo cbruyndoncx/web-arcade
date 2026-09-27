@@ -1,0 +1,705 @@
+/* ==========================================================================
+   NBA JAM: TOURNAMENT EDITION (1994 Arcade)
+   Midway Arcade Cabinet Styling
+   ========================================================================== */
+
+:root {
+  --bg-deep: #090a12;
+  --bg-cabinet: #111422;
+  --bg-surface: #1a1e32;
+  
+  --fire-orange: #f97316;
+  --fire-yellow: #facc15;
+  --fire-red: #ef4444;
+  --electric-blue: #00f0ff;
+  --turbo-green: #22c55e;
+  
+  --font-retro: 'Press Start 2P', monospace;
+  --font-sports: 'Teko', sans-serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 20%, #201a35 0%, #080910 85%);
+  color: #fff;
+  font-family: var(--font-ui);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 10px;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Arcade Hub Return Button
+   ========================================================================== */
+#arcade-hub-back-btn {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 99999;
+  background: rgba(15, 18, 30, 0.92);
+  color: #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.6);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: monospace, sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#arcade-hub-back-btn:hover {
+  background: #f97316;
+  color: #0f121e;
+  box-shadow: 0 0 16px rgba(249, 115, 22, 0.8);
+}
+
+/* ==========================================================================
+   NBA Jam Cabinet Housing
+   ========================================================================== */
+.jam-cabinet {
+  width: 100%;
+  max-width: 900px;
+  background: var(--bg-cabinet);
+  border: 3px solid #2d334d;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(249, 115, 22, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Marquee Header */
+.jam-marquee {
+  background: linear-gradient(180deg, #1c2033 0%, #0d0f1a 100%);
+  border-bottom: 2px solid #3b4263;
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee-lights {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.light-bulb {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: bulbFlash 1.2s infinite alternate;
+}
+.light-bulb.red { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+.light-bulb.yellow { background: #facc15; box-shadow: 0 0 6px #facc15; animation-delay: 0.3s; }
+.light-bulb.blue { background: #38bdf8; box-shadow: 0 0 6px #38bdf8; animation-delay: 0.6s; }
+
+@keyframes bulbFlash {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}
+
+.marquee-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.jam-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+}
+
+.logo-nba {
+  font-family: var(--font-sports);
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: #ffffff;
+  background: linear-gradient(180deg, #3b82f6 0%, #ef4444 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 1px;
+}
+
+.logo-jam {
+  font-family: var(--font-sports);
+  font-size: 2.6rem;
+  font-weight: 900;
+  color: var(--fire-orange);
+  text-shadow: 0 0 10px rgba(249, 115, 22, 0.7), 2px 2px 0px #7c2d12;
+  letter-spacing: 2px;
+}
+
+.logo-te {
+  font-family: var(--font-retro);
+  font-size: 0.55rem;
+  color: var(--fire-yellow);
+  letter-spacing: 2px;
+  margin-top: -4px;
+}
+
+.header-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.quarter-display {
+  font-family: var(--font-retro);
+  font-size: 0.75rem;
+  background: #000;
+  color: var(--electric-blue);
+  border: 1px solid #1e293b;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.clock-display {
+  font-family: var(--font-retro);
+  font-size: 1rem;
+  background: #000;
+  color: var(--fire-yellow);
+  border: 1px solid #1e293b;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+
+.btn-cabinet-sound {
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #e2e8f0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-cabinet-sound:hover {
+  background: #334155;
+  color: #fff;
+}
+
+/* ==========================================================================
+   Scoreboard HUD Bar
+   ========================================================================== */
+.jam-scoreboard {
+  background: #0b0d17;
+  border-bottom: 2px solid #23283c;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 18px;
+  position: relative;
+}
+
+.team-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.team-panel.away {
+  flex-direction: row-reverse;
+}
+
+.team-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-panel.away .team-meta {
+  align-items: flex-end;
+}
+
+.team-city {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 1px;
+}
+
+.team-name {
+  font-family: var(--font-sports);
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.team-score {
+  font-family: var(--font-retro);
+  font-size: 1.5rem;
+  background: #000;
+  color: #fff;
+  border: 2px solid #334155;
+  padding: 4px 12px;
+  border-radius: 6px;
+  min-width: 58px;
+  text-align: center;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.home .team-score {
+  color: #ef4444;
+  border-color: #ef4444;
+  text-shadow: 0 0 8px rgba(239, 68, 68, 0.6);
+}
+
+.away .team-score {
+  color: #38bdf8;
+  border-color: #38bdf8;
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+}
+
+.streak-flames {
+  display: flex;
+  gap: 2px;
+}
+
+.flame-icon {
+  font-size: 0.9rem;
+  opacity: 0.15;
+  filter: grayscale(1);
+  transition: opacity 0.2s, filter 0.2s;
+}
+
+.flame-icon.active {
+  opacity: 1;
+  filter: grayscale(0);
+  animation: flamePulse 0.4s infinite alternate;
+}
+
+@keyframes flamePulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+
+.center-banner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shot-clock {
+  font-family: var(--font-retro);
+  font-size: 1.25rem;
+  color: var(--fire-yellow);
+  background: #000;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #78350f;
+}
+
+.shot-clock.danger {
+  color: #ef4444;
+  animation: blinkAnim 0.3s infinite alternate;
+}
+
+.shot-clock-label {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #64748b;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Court Screen & Overlays
+   ========================================================================== */
+.court-screen-container {
+  position: relative;
+  width: 100%;
+  background: #07090e;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#court-canvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 860 / 460;
+  display: block;
+  background: #111;
+}
+
+.crt-scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.2) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0.6;
+}
+
+/* Announcer Callout Banner */
+.announcer-banner {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.95), rgba(249, 115, 22, 0.95));
+  border: 3px solid #facc15;
+  box-shadow: 0 0 35px rgba(249, 115, 22, 0.9), 0 10px 30px rgba(0,0,0,0.8);
+  border-radius: 12px;
+  padding: 12px 28px;
+  z-index: 20;
+  pointer-events: none;
+  animation: bannerPop 0.2s cubic-bezier(0.17, 0.89, 0.32, 1.28);
+}
+
+.announcer-banner.hidden {
+  display: none;
+}
+
+@keyframes bannerPop {
+  0% { transform: translate(-50%, -50%) scale(0.6); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+#announcer-text {
+  font-family: var(--font-sports);
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+  white-space: nowrap;
+}
+
+/* Game Overlay Cards (Team Select & Game Over) */
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 10, 18, 0.88);
+  backdrop-filter: blur(6px);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.game-overlay.hidden {
+  display: none;
+}
+
+.select-card {
+  background: #151928;
+  border: 2px solid var(--fire-orange);
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(249, 115, 22, 0.4), 0 20px 40px rgba(0,0,0,0.9);
+  padding: 22px 26px;
+  max-width: 620px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.select-title {
+  font-family: var(--font-sports);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--fire-yellow);
+  text-align: center;
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.team-choice-btn {
+  background: #1f253d;
+  border: 2px solid #374151;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.team-choice-btn:hover {
+  border-color: var(--electric-blue);
+  background: #283152;
+}
+
+.team-choice-btn.selected {
+  border-color: var(--fire-orange);
+  background: #2d1c24;
+  box-shadow: 0 0 12px rgba(249, 115, 22, 0.5);
+}
+
+.team-choice-btn .t-name {
+  font-family: var(--font-sports);
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+}
+
+.team-choice-btn .t-city {
+  font-size: 0.68rem;
+  color: #94a3b8;
+}
+
+.matchup-preview {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  background: #0f121d;
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #23283c;
+}
+
+.preview-team h3 {
+  font-family: var(--font-sports);
+  font-size: 1.3rem;
+  color: var(--fire-orange);
+}
+
+.preview-team.away-side h3 {
+  color: var(--electric-blue);
+}
+
+.preview-team p {
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.vs-text {
+  font-family: var(--font-retro);
+  font-size: 0.9rem;
+  color: var(--fire-yellow);
+}
+
+.btn-tipoff {
+  background: linear-gradient(135deg, #ef4444 0%, #f97316 100%);
+  border: none;
+  color: #fff;
+  font-family: var(--font-sports);
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  padding: 10px 32px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(249, 115, 22, 0.5);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-tipoff:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 24px rgba(249, 115, 22, 0.8);
+}
+
+.final-score-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.final-score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.big-score {
+  font-family: var(--font-retro);
+  font-size: 2.2rem;
+  color: var(--fire-yellow);
+}
+
+.final-hyphen {
+  font-size: 2rem;
+  color: #64748b;
+}
+
+/* ==========================================================================
+   Virtual Touch Controls
+   ========================================================================== */
+.virtual-controls-bar {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #0c0e18;
+  border-top: 1px solid #23283c;
+}
+
+@media (pointer: coarse) {
+  .virtual-controls-bar {
+    display: flex;
+  }
+}
+
+.virtual-dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.vbtn-mid-row {
+  display: flex;
+  gap: 4px;
+}
+
+.vbtn {
+  background: #1f253d;
+  border: 1px solid #374151;
+  border-bottom: 3px solid #111827;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vbtn:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+  background: #2d375a;
+}
+
+.virtual-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.vbtn-action {
+  font-family: var(--font-sports);
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.vbtn-action.turbo {
+  background: #16a34a;
+}
+
+.vbtn-action.pass {
+  background: #2563eb;
+}
+
+.vbtn-action.shoot {
+  background: #ea580c;
+}
+
+.vbtn-sublabel {
+  font-size: 0.6rem;
+  color: #64748b;
+  font-family: monospace;
+}
+
+/* ==========================================================================
+   Footer Legend
+   ========================================================================== */
+.jam-footer-legend {
+  background: #090b14;
+  border-top: 1px solid #1a1e30;
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: #94a3b8;
+}
+
+.legend-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.legend-row kbd {
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-bottom: 2px solid #334155;
+  color: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-family: monospace;
+}
+
+.legend-tips {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--fire-yellow);
+}
+
+@media (max-width: 680px) {
+  .teams-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .jam-marquee {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .team-name {
+    font-size: 1.25rem;
+  }
+}

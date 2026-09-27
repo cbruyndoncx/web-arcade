@@ -5,6 +5,48 @@
 
 const GAMES_DATA = [
   {
+    id: "nba-jam",
+    title: "NBA Jam: T.E. (1994)",
+    category: "sports",
+    categoryLabel: "Sports / Arcade",
+    era: "1994 Midway",
+    engine: "HTML5 Canvas • Voice Announcer • 2v2 AI",
+    cover: "./assets/covers/nba-jam.jpg",
+    path: "./games/nba-jam/index.html",
+    tagline: "The legendary 2-on-2 arcade basketball sensation. High-flying somersault dunks, shove defense, and 'HE'S ON FIRE!'",
+    specs: ["2-on-2 Arcade Basketball", "Flaming Ball Physics", "Tim Kitzrow Commentary", "1994 Classic Rosters"],
+    controlsSnippet: "Arrows • Space (Shoot/Dunk) • Z (Pass/Shove) • Shift (Turbo)",
+    controls: [
+      { key: "Arrow Keys / WASD", desc: "Run, dribble, and steer player across the hardwood court" },
+      { key: "Space / X / J", desc: "Shoot / Monster Slam Dunk (near hoop holding Turbo) / Jump Block" },
+      { key: "Z / K", desc: "Pass to teammate / On defense: Two-handed shove to knock opponent down" },
+      { key: "Shift / L / E", desc: "Turbo speed sprint & high-altitude flips" },
+      { key: "Virtual Pad", desc: "Virtual joystick and action buttons for smartphones and tablets" }
+    ],
+    lore: "Released by Midway in 1994, NBA Jam: Tournament Edition took the world by storm with exaggerated physics, shattered backboards, over-the-top commentary from Tim Kitzrow, and the immortal 'HE'S ON FIRE!' mechanic."
+  },
+  {
+    id: "nhl-94",
+    title: "EA Sports NHL '94",
+    category: "sports",
+    categoryLabel: "Sports / 16-Bit Hockey",
+    era: "1994 EA Sports",
+    engine: "HTML5 Canvas • Stadium Organ • Ice Inertia",
+    cover: "./assets/covers/nhl-94.jpg",
+    path: "./games/nhl-94/index.html",
+    tagline: "The gold standard of 16-bit retro sports gaming. Devastating one-timers, stadium organ tunes, and bone-crushing body checks!",
+    specs: ["One-Timer Shot System", "Glide Inertia & Ice Spray", "Stadium Organ 'Charge!'", "Classic 1994 Rosters"],
+    controlsSnippet: "Arrows • Space (Slap Shot) • Z (Pass/Check)",
+    controls: [
+      { key: "Arrow Keys / WASD", desc: "Skate and steer with authentic ice friction and glide inertia" },
+      { key: "Space / X / J", desc: "Wrist Shot (tap) or heavy Slap Shot (hold to charge power)" },
+      { key: "Z / K", desc: "Pass puck / On defense: Deliver a heavy body check into the boards" },
+      { key: "One-Timer", desc: "Pass to a teammate and tap shoot before the puck arrives to blast a one-timer" },
+      { key: "Virtual Pad", desc: "Virtual on-screen touch controls for mobile devices" }
+    ],
+    lore: "EA Sports NHL '94 is celebrated as one of the greatest video games ever made. Introducing direct one-timer shots, authentic organ music, manual goalie control, and legendary 1994 playoff intensity."
+  },
+  {
     id: "qix",
     title: "NEO-QIX 2088",
     category: "arcade",

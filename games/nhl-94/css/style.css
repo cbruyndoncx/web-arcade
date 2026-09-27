@@ -1,0 +1,558 @@
+/* ==========================================================================
+   NHL '94 - Classic 16-Bit Hockey Remake
+   ========================================================================== */
+
+:root {
+  --bg-deep: #080d1a;
+  --bg-console: #0f172a;
+  --rink-ice: #e2f1fd;
+  --rink-ice-deep: #cae6fb;
+  --nhl-blue: #1d4ed8;
+  --nhl-red: #dc2626;
+  --nhl-gold: #facc15;
+  
+  --font-retro: 'Press Start 2P', monospace;
+  --font-sports: 'Teko', sans-serif;
+  --font-ui: 'Inter', -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 25%, #172554 0%, #050b14 85%);
+  color: #fff;
+  font-family: var(--font-ui);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 10px;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Arcade Hub Return Button
+   ========================================================================== */
+#arcade-hub-back-btn {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 99999;
+  background: rgba(15, 23, 42, 0.92);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.6);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: monospace, sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#arcade-hub-back-btn:hover {
+  background: #38bdf8;
+  color: #0f172a;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.8);
+}
+
+/* ==========================================================================
+   Console Container
+   ========================================================================== */
+.nhl-console {
+  width: 100%;
+  max-width: 900px;
+  background: var(--bg-console);
+  border: 3px solid #334155;
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(56, 189, 248, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.nhl-header {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  border-bottom: 2px solid #334155;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-crest {
+  display: flex;
+  flex-direction: column;
+}
+
+.ea-text {
+  font-family: var(--font-sports);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  color: var(--nhl-red);
+  font-weight: 800;
+}
+
+.nhl-title {
+  font-family: var(--font-sports);
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: #38bdf8;
+  letter-spacing: 2px;
+  line-height: 0.9;
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+}
+
+.stadium-scoreboard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #000;
+  border: 2px solid #1e293b;
+  border-radius: 8px;
+  padding: 4px 16px;
+}
+
+.sb-team {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sb-name {
+  font-family: var(--font-sports);
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.home .sb-name { color: #38bdf8; }
+.away .sb-name { color: #ef4444; }
+
+.sb-score {
+  font-family: var(--font-retro);
+  font-size: 1.4rem;
+  color: #facc15;
+  background: #111;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.sb-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 8px;
+  border-left: 1px solid #222;
+  border-right: 1px solid #222;
+}
+
+.sb-period {
+  font-family: var(--font-retro);
+  font-size: 0.65rem;
+  color: #38bdf8;
+}
+
+.sb-clock {
+  font-family: var(--font-retro);
+  font-size: 0.95rem;
+  color: #ffffff;
+}
+
+.sb-shots {
+  font-size: 0.65rem;
+  color: #94a3b8;
+  font-weight: 700;
+}
+
+.btn-nhl-sound {
+  background: #1e293b;
+  border: 1px solid #475569;
+  color: #f1f5f9;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   Ice Rink Viewport
+   ========================================================================== */
+.rink-screen-container {
+  position: relative;
+  width: 100%;
+  background: #0a0e17;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#rink-canvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 860 / 460;
+  display: block;
+  background: var(--rink-ice);
+}
+
+.rink-glass-fx {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(255,255,255,0.04) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.1) 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Goal Horn Banner */
+.goal-horn-banner {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, #dc2626, #ea580c);
+  border: 3px solid #facc15;
+  box-shadow: 0 0 40px rgba(220, 38, 38, 0.9);
+  border-radius: 12px;
+  padding: 14px 32px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: goalPop 0.2s cubic-bezier(0.17, 0.89, 0.32, 1.28);
+}
+
+.goal-horn-banner.hidden {
+  display: none;
+}
+
+.red-goal-light {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 15px #fff, 0 0 30px #ef4444;
+  animation: sirenFlash 0.2s infinite alternate;
+}
+
+@keyframes sirenFlash {
+  0% { transform: scale(0.9); opacity: 0.6; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+
+.goal-text {
+  font-family: var(--font-sports);
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: #fff;
+}
+
+/* Overlays (Team Selection & Final Score) */
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 26, 0.88);
+  backdrop-filter: blur(8px);
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.game-overlay.hidden {
+  display: none;
+}
+
+.nhl-card {
+  background: #1e293b;
+  border: 2px solid #38bdf8;
+  border-radius: 16px;
+  box-shadow: 0 0 35px rgba(56, 189, 248, 0.35), 0 20px 40px rgba(0,0,0,0.9);
+  padding: 22px 28px;
+  max-width: 620px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.card-title {
+  font-family: var(--font-sports);
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: #38bdf8;
+  text-align: center;
+}
+
+.teams-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+}
+
+.team-btn {
+  background: #0f172a;
+  border: 2px solid #334155;
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.15s ease;
+}
+
+.team-btn:hover {
+  border-color: #38bdf8;
+  background: #1e293b;
+}
+
+.team-btn.selected {
+  border-color: #38bdf8;
+  background: #0284c7;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.5);
+}
+
+.team-btn .t-title {
+  font-family: var(--font-sports);
+  font-size: 1.15rem;
+}
+
+.team-btn .t-city {
+  font-size: 0.65rem;
+  color: #94a3b8;
+}
+
+.matchup-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  background: #0f172a;
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid #334155;
+}
+
+.m-team h3 {
+  font-family: var(--font-sports);
+  font-size: 1.3rem;
+  color: #38bdf8;
+}
+
+.m-team.away h3 {
+  color: #ef4444;
+}
+
+.m-badge {
+  font-size: 0.65rem;
+  background: #334155;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 800;
+}
+
+.m-vs {
+  font-family: var(--font-retro);
+  font-size: 0.9rem;
+  color: var(--nhl-gold);
+}
+
+.btn-puck-drop {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+  border: 2px solid #38bdf8;
+  color: #fff;
+  font-family: var(--font-sports);
+  font-size: 1.6rem;
+  letter-spacing: 2px;
+  padding: 10px 34px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-puck-drop:hover {
+  transform: scale(1.04);
+  box-shadow: 0 0 24px rgba(56, 189, 248, 0.7);
+}
+
+.final-board {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.final-t {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fin-score {
+  font-family: var(--font-retro);
+  font-size: 2.2rem;
+  color: var(--nhl-gold);
+}
+
+.fin-div {
+  font-size: 2rem;
+  color: #64748b;
+}
+
+/* ==========================================================================
+   Virtual Touch Controls
+   ========================================================================== */
+.virtual-controls-bar {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: #090e1a;
+  border-top: 1px solid #1e293b;
+}
+
+@media (pointer: coarse) {
+  .virtual-controls-bar {
+    display: flex;
+  }
+}
+
+.virtual-dpad {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.vbtn-mid-row {
+  display: flex;
+  gap: 4px;
+}
+
+.vbtn {
+  background: #1e293b;
+  border: 1px solid #334155;
+  border-bottom: 3px solid #0f172a;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vbtn:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+}
+
+.virtual-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.action-btn-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.vbtn-action {
+  font-family: var(--font-sports);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.vbtn-action.pass {
+  background: #0284c7;
+}
+
+.vbtn-action.shoot {
+  background: #dc2626;
+}
+
+.vbtn-sublabel {
+  font-size: 0.6rem;
+  color: #64748b;
+  font-family: monospace;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.nhl-footer {
+  background: #0b0f19;
+  border-top: 1px solid #1e293b;
+  padding: 10px 16px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.footer-keys {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+}
+
+.footer-keys kbd {
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-bottom: 2px solid #334155;
+  color: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-family: monospace;
+}
+
+@media (max-width: 680px) {
+  .nhl-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stadium-scoreboard {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .teams-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

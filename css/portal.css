@@ -441,6 +441,11 @@ html, body {
   text-transform: uppercase;
 }
 
+.badge-pill.sports {
+  background: rgba(249, 115, 22, 0.92);
+  color: #ffffff;
+}
+
 .badge-pill.arcade {
   background: rgba(0, 240, 255, 0.85);
   color: #050814;

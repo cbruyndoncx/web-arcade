@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>NBA JAM: Tournament Edition (1994 Arcade)</title>
+  <meta name="description" content="Play the 1994 arcade 2-on-2 basketball classic NBA Jam: Tournament Edition in your browser. Somersault dunks, flaming basketballs, and BOOMSHAKALAKA!">
+
+  <!-- Favicon: Flaming Basketball -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23ea580c'/><path d='M15 50 Q50 30 85 50 M15 50 Q50 70 85 50 M50 10 L50 90' stroke='%23111' stroke-width='4' fill='none'/><path d='M25 20 Q50 5 75 20' stroke='%23facc15' stroke-width='5' fill='none'/></svg>">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Teko:wght@700&family=Inter:wght@600;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Return to Arcade Hub -->
+  <a href="../../index.html" target="_top" id="arcade-hub-back-btn" title="Return to Arcade Hub" onclick="if(window.top!==window.self){window.top.postMessage('close-modal','*');return false;}">
+    <span>◀</span> ARCADE HUB
+  </a>
+
+  <!-- Arcade Cabinet Shell -->
+  <div class="jam-cabinet">
+    <!-- Top Marquee Header -->
+    <header class="jam-marquee">
+      <div class="marquee-lights">
+        <span class="light-bulb red"></span>
+        <span class="light-bulb yellow"></span>
+        <span class="light-bulb blue"></span>
+        <span class="light-bulb red"></span>
+        <span class="light-bulb yellow"></span>
+        <span class="light-bulb blue"></span>
+        <span class="light-bulb red"></span>
+      </div>
+
+      <div class="marquee-logo-wrap">
+        <h1 class="jam-logo">
+          <span class="logo-nba">NBA</span>
+          <span class="logo-jam">JAM</span>
+        </h1>
+        <span class="logo-te">TOURNAMENT EDITION</span>
+      </div>
+
+      <div class="header-status">
+        <span class="quarter-display" id="hud-quarter">1ST QTR</span>
+        <span class="clock-display" id="hud-clock">2:00</span>
+        <button id="btn-sound-toggle" class="btn-cabinet-sound" title="Toggle Sound">🔊 SOUND: ON</button>
+      </div>
+    </header>
+
+    <!-- Scoreboard HUD Bar -->
+    <section class="jam-scoreboard">
+      <!-- Team 1 (Player / Home) -->
+      <div class="team-panel home" id="panel-team-home">
+        <div class="team-meta">
+          <span class="team-city" id="home-city">CHICAGO</span>
+          <span class="team-name" id="home-name">BULLS</span>
+        </div>
+        <div class="team-score" id="home-score">0</div>
+        <div class="streak-flames" id="home-flames" title="Streak to On Fire">
+          <span class="flame-icon">🔥</span>
+          <span class="flame-icon">🔥</span>
+          <span class="flame-icon">🔥</span>
+        </div>
+      </div>
+
+      <!-- Center Shot Clock & Status -->
+      <div class="center-banner">
+        <div class="shot-clock" id="shot-clock-val">24</div>
+        <span class="shot-clock-label">SHOT CLOCK</span>
+      </div>
+
+      <!-- Team 2 (CPU / Away) -->
+      <div class="team-panel away" id="panel-team-away">
+        <div class="streak-flames" id="away-flames" title="Streak to On Fire">
+          <span class="flame-icon">🔥</span>
+          <span class="flame-icon">🔥</span>
+          <span class="flame-icon">🔥</span>
+        </div>
+        <div class="team-score" id="away-score">0</div>
+        <div class="team-meta">
+          <span class="team-city" id="away-city">NEW YORK</span>
+          <span class="team-name" id="away-name">KNICKS</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Canvas Basketball Court Screen -->
+    <div class="court-screen-container">
+      <canvas id="court-canvas" width="860" height="460"></canvas>
+      <div class="crt-scanlines"></div>
+
+      <!-- Announcer Callout Banner (BOOMSHAKALAKA, ON FIRE, etc) -->
+      <div id="announcer-banner" class="announcer-banner hidden">
+        <span id="announcer-text">BOOMSHAKALAKA!</span>
+      </div>
+
+      <!-- Matchup Selector Overlay (Pre-Game) -->
+      <div id="team-select-overlay" class="game-overlay">
+        <div class="select-card">
+          <h2 class="select-title">SELECT YOUR 2-ON-2 MATCHUP</h2>
+          
+          <div class="teams-grid" id="teams-grid">
+            <!-- Injected via game.js -->
+          </div>
+
+          <div class="matchup-preview" id="matchup-preview">
+            <div class="preview-team home-side">
+              <h3 id="preview-home-name">CHICAGO BULLS</h3>
+              <p id="preview-home-roster">Scottie Pippen &bull; Horace Grant</p>
+            </div>
+            <span class="vs-text">VS</span>
+            <div class="preview-team away-side">
+              <h3 id="preview-away-name">NEW YORK KNICKS</h3>
+              <p id="preview-away-roster">Patrick Ewing &bull; John Starks</p>
+            </div>
+          </div>
+
+          <button id="btn-tip-off" class="btn-tipoff">🔥 TIP OFF! 🔥</button>
+        </div>
+      </div>
+
+      <!-- Game Over / End Quarter Overlay -->
+      <div id="game-over-overlay" class="game-overlay hidden">
+        <div class="select-card">
+          <h2 class="select-title" id="game-over-title">FINAL SCORE</h2>
+          <div class="final-score-row">
+            <div class="final-score-box">
+              <span id="final-home-team">BULLS</span>
+              <span class="big-score" id="final-home-score">0</span>
+            </div>
+            <span class="final-hyphen">-</span>
+            <div class="final-score-box">
+              <span id="final-away-team">KNICKS</span>
+              <span class="big-score" id="final-away-score">0</span>
+            </div>
+          </div>
+          <p id="final-mvp-text">SCOTTIE PIPPEN IS THE PLAYER OF THE GAME!</p>
+          <button id="btn-play-again" class="btn-tipoff">PLAY AGAIN</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- On-Screen Virtual Controls for Mobile / Tablets -->
+    <div class="virtual-controls-bar">
+      <!-- Virtual D-Pad -->
+      <div class="virtual-dpad">
+        <button id="vbtn-up" class="vbtn dir up">▲</button>
+        <div class="vbtn-mid-row">
+          <button id="vbtn-left" class="vbtn dir left">◀</button>
+          <button id="vbtn-down" class="vbtn dir down">▼</button>
+          <button id="vbtn-right" class="vbtn dir right">▶</button>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="virtual-actions">
+        <div class="action-btn-col">
+          <button id="vbtn-turbo" class="vbtn-action turbo">TURBO</button>
+          <span class="vbtn-sublabel">Shift / L</span>
+        </div>
+        <div class="action-btn-col">
+          <button id="vbtn-pass" class="vbtn-action pass">PASS / SHOVE</button>
+          <span class="vbtn-sublabel">Z / K</span>
+        </div>
+        <div class="action-btn-col">
+          <button id="vbtn-shoot" class="vbtn-action shoot">SHOOT / DUNK</button>
+          <span class="vbtn-sublabel">Space / X / J</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cabinet Footer Instructions -->
+    <footer class="jam-footer-legend">
+      <div class="legend-row">
+        <span>🏃 <strong>MOVE:</strong> <kbd>&larr;</kbd> <kbd>&uarr;</kbd> <kbd>&darr;</kbd> <kbd>&rarr;</kbd> or <kbd>WASD</kbd></span>
+        <span>⚡ <strong>TURBO:</strong> <kbd>SHIFT</kbd> or <kbd>L</kbd></span>
+        <span>🏀 <strong>SHOOT / DUNK / BLOCK:</strong> <kbd>SPACE</kbd>, <kbd>X</kbd>, or <kbd>J</kbd></span>
+        <span>✋ <strong>PASS / STEAL / SHOVE:</strong> <kbd>Z</kbd> or <kbd>K</kbd></span>
+      </div>
+      <div class="legend-tips">
+        <span>🔥 <strong>TIP:</strong> Make 3 baskets in a row to catch <strong>ON FIRE</strong>! Hold <strong>TURBO + SHOOT</strong> near the hoop for somersaulting monster dunks!</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

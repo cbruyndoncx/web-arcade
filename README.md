@@ -19,7 +19,8 @@ When testing LLM coding harnesses and building retro games, having separate repo
 ## 🎮 Included Games
 
 | Game | Era / Genre | Tech Stack | Description |
-| :--- | :--- | :--- | :--- |
+| **[NBA Jam: T.E. (1994)](./games/nba-jam/index.html)** | 1994 / Arcade Sports | HTML5 Canvas, Voice Announcer, 2v2 AI | The legendary 2-on-2 arcade basketball phenomenon. Somersault monster dunks, shove defense, flaming balls, and Tim Kitzrow commentary! |
+| **[EA Sports NHL '94](./games/nhl-94/index.html)** | 1994 / 16-Bit Hockey | HTML5 Canvas, Stadium Organ, Ice Physics | The gold standard of retro sports gaming. Devastating one-timers, organ tunes, bone-crushing checks, and Stanley Cup intensity! |
 | **[NEO-QIX 2088](./games/qix/index.html)** | 1981 / Modern Remake | HTML5 Canvas, Delta-Time Engine, Web Audio | Modernized synthwave tribute to Taito's 1981 classic. Claim territory, avoid the erratic plasma Qix, dodge patrolling Sparx, and uncover vibrant synthwave backgrounds. |
 | **[Jet Set Willy (Enhanced)](./games/jet-set-willy-agy/index.html)** | 1984 / Enhanced | HTML5 Canvas, CRT Scanlines, Web Audio | Authentic recreation of Matthew Smith's legendary 60-room ZX Spectrum platformer. Guide Miner Willy, collect glasses, enjoy the *Moonlight Sonata* soundtrack and room warp picker. |
 | **[Snoopy Tabletop (SM-73)](./games/snoopy/index.html)** | 1983 / Game & Watch | HTML5 Canvas, Piezo Web Audio | Faithful web reproduction of Nintendo's classic 1983 Tabletop arcade game. Guide Snoopy across platforms to smash Schroeder's musical notes before they wake sleeping Woodstock! |
