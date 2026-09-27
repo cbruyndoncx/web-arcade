@@ -1,0 +1,479 @@
+/* ==========================================================================
+   NINTENDO GAME & WATCH TABLETOP: SNOOPY (SM-73)
+   Vintage Arcade Cabinet Styling
+   ========================================================================== */
+
+:root {
+  --orange-case: #ea580c;
+  --orange-case-light: #fb923c;
+  --orange-case-dark: #c2410c;
+  --orange-case-deep: #9a3412;
+  
+  --hood-black: #101216;
+  --hood-shadow: rgba(0, 0, 0, 0.75);
+  
+  --btn-red: #dc2626;
+  --btn-red-dark: #991b1b;
+  --btn-red-light: #ef4444;
+  
+  --lcd-bg: #22292f;
+  --lcd-screen-rim: #0c0e12;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background: radial-gradient(circle at 50% 30%, #2a2d3d 0%, #11131a 80%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #fff;
+  padding: 16px 10px;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   Arcade Hub Return Button
+   ========================================================================== */
+#arcade-hub-back-btn {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 99999;
+  background: rgba(16, 18, 26, 0.92);
+  color: #ea580c;
+  border: 1px solid rgba(234, 88, 12, 0.6);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-family: monospace, sans-serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#arcade-hub-back-btn:hover {
+  background: #ea580c;
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(234, 88, 12, 0.7);
+}
+
+/* ==========================================================================
+   Tabletop Cabinet Construction
+   ========================================================================== */
+.cabinet-outer {
+  width: 100%;
+  max-width: 620px;
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+}
+
+.cabinet-body {
+  width: 100%;
+  background: linear-gradient(175deg, var(--orange-case-light) 0%, var(--orange-case) 25%, var(--orange-case-dark) 85%, var(--orange-case-deep) 100%);
+  border-radius: 28px 28px 20px 20px;
+  box-shadow: 
+    0 24px 60px rgba(0, 0, 0, 0.8),
+    inset 0 4px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.5),
+    inset 6px 0 10px rgba(255, 255, 255, 0.15),
+    inset -6px 0 10px rgba(0, 0, 0, 0.3);
+  padding: 20px 22px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Cabinet Header */
+.cabinet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #0d0f14;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: 2px solid #20242e;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+}
+
+.badge-gamewatch .gw-text {
+  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  color: #f1f5f9;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+.badge-series {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.series-red-box {
+  background: #dc2626;
+  color: #fff;
+  font-family: 'Arial Black', sans-serif;
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+}
+
+.series-title {
+  font-family: 'Impact', sans-serif;
+  font-size: 1.25rem;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.model-number {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   Screen Hood & Display Area
+   ========================================================================== */
+.screen-hood {
+  background: linear-gradient(to bottom, #090a0d 0%, #151820 100%);
+  border-radius: 16px;
+  padding: 18px 18px 16px;
+  box-shadow: 
+    inset 0 15px 30px rgba(0, 0, 0, 0.95),
+    inset 0 0 10px rgba(0, 0, 0, 0.9),
+    0 4px 8px rgba(0, 0, 0, 0.4);
+  border: 4px solid #1c202a;
+}
+
+.hood-bezel {
+  position: relative;
+  width: 100%;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.screen-inner-reflection {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 45%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 65%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+#gw-canvas {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 560 / 380;
+  display: block;
+  background-color: var(--lcd-bg);
+}
+
+.lcd-scanline-fx {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,0.15) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.5;
+}
+
+/* ==========================================================================
+   Control Panel
+   ========================================================================== */
+.control-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 4px;
+}
+
+/* System Buttons Row */
+.sys-buttons-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.sys-btn {
+  background: #475569;
+  border: 1px solid #1e293b;
+  border-bottom: 3px solid #1e293b;
+  color: #f8fafc;
+  font-family: -apple-system, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  transition: transform 0.08s, border-bottom 0.08s;
+}
+
+.sys-btn:active, .sys-btn.active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+  background: #334155;
+}
+
+.btn-pip {
+  width: 6px;
+  height: 6px;
+  background: #94a3b8;
+  border-radius: 50%;
+}
+
+.sys-btn.active .btn-pip {
+  background: #22c55e;
+  box-shadow: 0 0 6px #22c55e;
+}
+
+/* Panel Inputs Row (Joystick + Speaker + Smash) */
+.panel-inputs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 8px 10px;
+}
+
+/* Joystick Assembly */
+.joystick-assembly {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.joystick-base {
+  width: 110px;
+  height: 90px;
+  background: #11141c;
+  border-radius: 16px;
+  border: 2px solid #282f3d;
+  box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.8), 0 4px 10px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.dpad-cross {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.joy-dir-btn {
+  background: var(--btn-red);
+  border: 1px solid var(--btn-red-dark);
+  border-bottom: 3px solid var(--btn-red-dark);
+  color: #fff;
+  width: 38px;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.4);
+  touch-action: manipulation;
+  transition: transform 0.08s, border-bottom 0.08s;
+}
+
+.joy-dir-btn:active, .joy-dir-btn.pressed {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+  background: var(--btn-red-dark);
+}
+
+.joy-center-stick {
+  width: 14px;
+  height: 30px;
+  background: #232733;
+  border-radius: 4px;
+  border: 1px solid #3c4456;
+}
+
+/* Speaker Grille */
+.speaker-grille {
+  display: grid;
+  grid-template-columns: repeat(3, 7px);
+  gap: 7px;
+  padding: 6px;
+}
+
+.grille-hole {
+  width: 7px;
+  height: 7px;
+  background: #16181f;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.9);
+}
+
+/* Action Smash Button Assembly */
+.action-btn-assembly {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-smash-btn {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, var(--btn-red-light) 0%, var(--btn-red) 55%, var(--btn-red-dark) 100%);
+  border: 3px solid #7f1d1d;
+  box-shadow: 
+    0 6px 14px rgba(0,0,0,0.6),
+    inset 0 3px 6px rgba(255,255,255,0.4),
+    inset 0 -4px 8px rgba(0,0,0,0.4);
+  cursor: pointer;
+  touch-action: manipulation;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.06s, box-shadow 0.06s;
+}
+
+.action-smash-btn:active, .action-smash-btn.pressed {
+  transform: translateY(4px) scale(0.96);
+  box-shadow: 
+    0 2px 6px rgba(0,0,0,0.6),
+    inset 0 1px 3px rgba(255,255,255,0.2),
+    inset 0 -2px 4px rgba(0,0,0,0.6);
+}
+
+.input-label {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 1px;
+  color: #1a1e28;
+  text-shadow: 0 1px 1px rgba(255,255,255,0.3);
+}
+
+/* Cabinet Footer Decal */
+.cabinet-footer-decal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  border-top: 1px solid rgba(0,0,0,0.15);
+  padding-top: 8px;
+}
+
+.nintendo-logo {
+  font-family: -apple-system, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  border-radius: 12px;
+  padding: 1px 12px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+
+.patent-text {
+  font-size: 0.55rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+/* ==========================================================================
+   Keyboard Legend
+   ========================================================================== */
+.keyboard-legend {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.keyboard-legend kbd {
+  background: #1e293b;
+  border: 1px solid #475569;
+  border-bottom: 2px solid #334155;
+  color: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-family: monospace;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .cabinet-body {
+    padding: 14px 12px 12px;
+    border-radius: 18px;
+  }
+
+  .screen-hood {
+    padding: 10px;
+  }
+
+  .joystick-base {
+    width: 95px;
+    height: 75px;
+  }
+
+  .joy-dir-btn {
+    width: 32px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .action-smash-btn {
+    width: 65px;
+    height: 65px;
+  }
+}

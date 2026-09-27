@@ -22,6 +22,7 @@ When testing LLM coding harnesses and building retro games, having separate repo
 | :--- | :--- | :--- | :--- |
 | **[NEO-QIX 2088](./games/qix/index.html)** | 1981 / Modern Remake | HTML5 Canvas, Delta-Time Engine, Web Audio | Modernized synthwave tribute to Taito's 1981 classic. Claim territory, avoid the erratic plasma Qix, dodge patrolling Sparx, and uncover vibrant synthwave backgrounds. |
 | **[Jet Set Willy (Enhanced)](./games/jet-set-willy-agy/index.html)** | 1984 / Enhanced | HTML5 Canvas, CRT Scanlines, Web Audio | Authentic recreation of Matthew Smith's legendary 60-room ZX Spectrum platformer. Guide Miner Willy, collect glasses, enjoy the *Moonlight Sonata* soundtrack and room warp picker. |
+| **[Snoopy Tabletop (SM-73)](./games/snoopy/index.html)** | 1983 / Game & Watch | HTML5 Canvas, Piezo Web Audio | Faithful web reproduction of Nintendo's classic 1983 Tabletop arcade game. Guide Snoopy across platforms to smash Schroeder's musical notes before they wake sleeping Woodstock! |
 | **[Jet Set Willy (Classic)](./games/jet-set-willy/index.html)** | 1984 / Classic Minimal | Pure Vanilla JS, Crisp Canvas | Lightweight, pure-canvas reproduction of the original Jet Set Willy game loop with on-screen virtual touch pad for mobile. |
 | **[Ministeck Daily Puzzle](./games/ministeck/index.html)** | 1965 / Modern PWA | React 18, Vite (Static Build), Canvas | Digital revival of the classic German plastic peg mosaic puzzle toy. Place colorful pegs onto perforated boards, solve daily animal/floral puzzles, or create freeform pixel art. |
 

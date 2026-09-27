@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SNOOPY Tabletop (SM-73) // Nintendo Game & Watch 1983</title>
+  <meta name="description" content="Authentic web reproduction of the 1983 Nintendo Game & Watch Tabletop Snoopy (Model SM-73). Smash Schroeder's musical notes before they wake up Woodstock!">
+
+  <!-- Favicon: Snoopy Cap -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23ea580c'/><ellipse cx='45' cy='50' rx='25' ry='20' fill='%23ffffff'/><circle cx='65' cy='52' r='7' fill='%23000000'/><ellipse cx='30' cy='50' rx='10' ry='16' fill='%23000000'/><path d='M25 35 Q45 20 65 35' stroke='%23e11d48' stroke-width='8' fill='%23e11d48'/></svg>">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Floating Back to Arcade Hub Button -->
+  <a href="../../index.html" target="_top" id="arcade-hub-back-btn" title="Return to Arcade Hub" onclick="if(window.top!==window.self){window.top.postMessage('close-modal','*');return false;}">
+    <span>◀</span> ARCADE HUB
+  </a>
+
+  <!-- Tabletop Arcade Cabinet -->
+  <div class="cabinet-outer">
+    <div class="cabinet-body">
+      <!-- Upper Marquee Header -->
+      <header class="cabinet-header">
+        <div class="badge-gamewatch">
+          <span class="gw-text">GAME & WATCH</span>
+        </div>
+        <div class="badge-series">
+          <span class="series-red-box">TABLETOP</span>
+          <span class="series-title">SNOOPY</span>
+        </div>
+        <div class="model-number">SM-73</div>
+      </header>
+
+      <!-- Recessed Hooded Display Screen Area -->
+      <div class="screen-hood">
+        <div class="hood-bezel">
+          <div class="screen-inner-reflection"></div>
+          <canvas id="gw-canvas" width="560" height="380"></canvas>
+          <div class="lcd-scanline-fx"></div>
+        </div>
+      </div>
+
+      <!-- Lower Control Panel -->
+      <div class="control-panel">
+        <!-- System Function Buttons -->
+        <div class="sys-buttons-row">
+          <button id="btn-game-a" class="sys-btn" title="Start Game A (3 Tracks)">
+            <span class="btn-pip"></span>
+            GAME A
+          </button>
+          <button id="btn-game-b" class="sys-btn" title="Start Game B (4 Tracks, Fast)">
+            <span class="btn-pip"></span>
+            GAME B
+          </button>
+          <button id="btn-time" class="sys-btn" title="Display Clock Time">
+            <span class="btn-pip"></span>
+            TIME
+          </button>
+          <button id="btn-sound" class="sys-btn" title="Toggle Piezo Sound FX">
+            <span class="btn-pip"></span>
+            SOUND: ON
+          </button>
+        </div>
+
+        <!-- Gameplay Inputs (Joystick + Smash Button) -->
+        <div class="panel-inputs-row">
+          <!-- Mini Joystick Controller (Left) -->
+          <div class="joystick-assembly">
+            <div class="joystick-base">
+              <div class="dpad-cross" id="dpad-touch-zone">
+                <button id="joy-left" class="joy-dir-btn left" aria-label="Move Left">◀</button>
+                <div class="joy-center-stick" id="joy-stick"></div>
+                <button id="joy-right" class="joy-dir-btn right" aria-label="Move Right">▶</button>
+              </div>
+            </div>
+            <span class="input-label">MOVE</span>
+          </div>
+
+          <!-- Speaker Grille (Center) -->
+          <div class="speaker-grille" title="Piezo Speaker">
+            <div class="grille-hole"></div><div class="grille-hole"></div><div class="grille-hole"></div>
+            <div class="grille-hole"></div><div class="grille-hole"></div><div class="grille-hole"></div>
+            <div class="grille-hole"></div><div class="grille-hole"></div><div class="grille-hole"></div>
+          </div>
+
+          <!-- Action Smash Button (Right) -->
+          <div class="action-btn-assembly">
+            <button id="btn-smash" class="action-smash-btn" aria-label="Hit / Smash Note with Mallet">
+              <span class="btn-cap"></span>
+            </button>
+            <span class="input-label">SMASH</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cabinet Brand Decal -->
+      <footer class="cabinet-footer-decal">
+        <span class="nintendo-logo">Nintendo</span>
+        <span class="patent-text">1983 NINTENDO CO., LTD. &bull; PEANUTS CHARACTERS &copy; 1958, 1965 UNITED FEATURE SYNDICATE, INC.</span>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Keyboard Controls Helper Bar -->
+  <div class="keyboard-legend">
+    <span>⌨️ <strong>CONTROLS:</strong></span>
+    <span><kbd>&larr;</kbd> <kbd>&rarr;</kbd> or <kbd>A</kbd> <kbd>D</kbd> : Move Snoopy</span>
+    <span><kbd>SPACE</kbd> or <kbd>&uarr;</kbd> : Swing Hammer</span>
+    <span><kbd>1</kbd> : Game A</span>
+    <span><kbd>2</kbd> : Game B</span>
+    <span><kbd>M</kbd> : Mute</span>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

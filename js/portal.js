@@ -27,6 +27,29 @@ const GAMES_DATA = [
     lore: "Originally created in 1981 by Randy and Sandy Pfeiffer for Taito, QIX pioneered the territory-claim arcade genre. NEO-QIX 2088 reimagines the formula with buttery sub-pixel collision physics, a smooth delta-time movement engine, synthwave aesthetic, and progressive round difficulty escalations."
   },
   {
+    id: "snoopy",
+    title: "Snoopy Tabletop (SM-73)",
+    category: "arcade",
+    categoryLabel: "Arcade / Game & Watch",
+    era: "1983 Nintendo",
+    engine: "HTML5 Canvas • Piezo Web Audio",
+    cover: "./assets/covers/snoopy.jpg",
+    path: "./games/snoopy/index.html",
+    tagline: "Authentic recreation of the 1983 Nintendo Tabletop arcade classic. Smash Schroeder's musical notes with Snoopy's hammer before they wake sleeping Woodstock!",
+    specs: ["Orange Tabletop Cabinet", "Piezo Beeper Synthesizer", "Game A & Game B Modes", "Lucy 100-Pt Intermission"],
+    controlsSnippet: "Left / Right • Space (Smash) • 1/2 (Game A/B)",
+    controls: [
+      { key: "Left Arrow / A", desc: "Move Snoopy left across platform posts" },
+      { key: "Right Arrow / D", desc: "Move Snoopy right across platform posts" },
+      { key: "Space / Up / Enter", desc: "Smash with mallet to crush rising musical notes" },
+      { key: "1 or Game A Button", desc: "Start Game A (3 note tracks, standard speed)" },
+      { key: "2 or Game B Button", desc: "Start Game B (4 note tracks, frantic speed)" },
+      { key: "M", desc: "Toggle piezo sound effects" },
+      { key: "Virtual Joystick", desc: "On-screen touch controls for smartphones and tablets" }
+    ],
+    lore: "Invented by Gunpei Yokoi and released by Nintendo in 1983, the Tabletop series was renowned for its chunky bright orange arcade cabinet, illuminated mirror-reflected color LCD screen, and mini joystick. Snoopy must protect sleeping Woodstock from the cascade of musical notes pouring out of Schroeder's toy piano."
+  },
+  {
     id: "jet-set-willy-agy",
     title: "Jet Set Willy (Enhanced Edition)",
     category: "platformer",
@@ -128,8 +151,23 @@ function initArcadeHub() {
     totalGamesCount.textContent = GAMES_DATA.length;
   }
 
+  updateCategoryPillCounts();
   renderGames();
   setupEventListeners();
+}
+
+function updateCategoryPillCounts() {
+  document.querySelectorAll(".filter-pill").forEach(pill => {
+    const cat = pill.dataset.category;
+    const countSpan = pill.querySelector(".pill-count");
+    if (!countSpan) return;
+    if (cat === "all") {
+      countSpan.textContent = GAMES_DATA.length;
+    } else {
+      const count = GAMES_DATA.filter(g => g.category === cat).length;
+      countSpan.textContent = count;
+    }
+  });
 }
 
 // Render Games Grid
